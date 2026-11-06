@@ -90,6 +90,6 @@ Object.values(S.recs).sort((a,b)=>a.month.localeCompare(b.month)||a.st.localeCom
 return rows.map(r=>r.map(c=>'"'+String(c==null?"":c).replace(/"/g,'""')+'"').join(",")).join("\n")}
 function dl(n,t,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type}));a.download=n;a.click()}
 document.querySelectorAll("#tabs button").forEach(b=>b.onclick=()=>{tab=b.dataset.t;render()});
-try{if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js")}catch(e){}
+try{if("serviceWorker"in navigator){const had=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(had&&!cur)location.reload()});navigator.serviceWorker.register("sw.js")}}catch(e){}
 render();autosync();
 </script></body></html>
